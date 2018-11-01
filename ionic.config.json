@@ -1,0 +1,7 @@
+{
+  "name": "myDiary",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
