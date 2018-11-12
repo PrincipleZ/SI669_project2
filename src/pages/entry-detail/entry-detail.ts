@@ -9,18 +9,37 @@ import { EntryDataServiceProvider } from "../../providers/entry-data-service/ent
   templateUrl: 'entry-detail.html',
 })
 export class EntryDetailPage {
+  private entry: Entry;
 
-  private entryText:string;
-  private entryTitle:string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private entryDataService: EntryDataServiceProvider) {
+    
+    
+    let entryID = this.navParams.get("entryID");
+
+    if (entryID === undefined) {
+      this.entry = new Entry();
+      this.entry.title = "";
+      this.entry.text = "";
+      this.entry.id = -1; // placeholder for 'temporary' entry
+    } else {
+      this.entry = this.entryDataService.getEntryByID(entryID);
+    }
+    console.log("entry is ", this.entry);
   }
 
   private saveEntry(){
-    let entry = new Entry();
-    entry.title = this.entryTitle;
-    entry.text = this.entryText;
+    if (this.entry.id == -1){
+     this.entryDataService.addEntry(this.entry);
+    } else {
+      this.entryDataService.updateEntry(this.entry.id, this.entry);
+    }
+    
+    this.navCtrl.pop();
+    console.log("Now I would save the entry: ", this.entry);
+  }
 
-    console.log("Now I would save the entry: ", entry);
+  private cancelEditing(){
+    this.navCtrl.pop();
   }
   
 }
