@@ -3,4 +3,5 @@ export class Entry {
     title: string;
     text: string;
     timestamp: Date;
+    image: string;
 }

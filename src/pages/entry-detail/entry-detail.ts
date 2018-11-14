@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Entry } from "../../models/entry"
 import { EntryDataServiceProvider } from "../../providers/entry-data-service/entry-data-service"
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
+const PLACEHOLDER_IMAGE: string = "/assets/imgs/placeholder.png";
+const SPINNER_IMAGE: string = "/assets/imgs/spinner.gif";
 
 @Component({
   selector: 'page-entry-detail',
@@ -10,8 +13,11 @@ import { EntryDataServiceProvider } from "../../providers/entry-data-service/ent
 })
 export class EntryDetailPage {
   private entry: Entry;
+  private image = PLACEHOLDER_IMAGE;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private entryDataService: EntryDataServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, private entryDataService: EntryDataServiceProvider,
+    private camera: Camera){
     
     
     let entryID = this.navParams.get("entryID");
@@ -42,4 +48,20 @@ export class EntryDetailPage {
     this.navCtrl.pop();
   }
   
+  private takePic(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      if (imageData) {
+        this.image = 'data:image/jpeg;base64,' + imageData;        
+      } 
+     }, (err) => {
+        this.image = PLACEHOLDER_IMAGE;
+     });
+    this.image = SPINNER_IMAGE;
+  }
 }
