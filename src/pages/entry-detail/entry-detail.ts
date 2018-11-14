@@ -29,11 +29,13 @@ export class EntryDetailPage {
       this.entry.id = -1; // placeholder for 'temporary' entry
     } else {
       this.entry = this.entryDataService.getEntryByID(entryID);
+      this.image = this.entry.image;
     }
     console.log("entry is ", this.entry);
   }
 
   private saveEntry(){
+    this.entry.image = this.image;
     if (this.entry.id == -1){
      this.entryDataService.addEntry(this.entry);
     } else {
@@ -60,8 +62,9 @@ export class EntryDetailPage {
         this.image = 'data:image/jpeg;base64,' + imageData;        
       } 
      }, (err) => {
-        this.image = PLACEHOLDER_IMAGE;
      });
-    this.image = SPINNER_IMAGE;
+
+
+
   }
 }

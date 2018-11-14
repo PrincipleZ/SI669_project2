@@ -61,6 +61,7 @@ export class EntryDataServiceProvider {
     let entryToUpdate: Entry = this.findEntryByID(id);
     entryToUpdate.title = newEntry.title;
     entryToUpdate.text = newEntry.text;
+    entryToUpdate.image = newEntry.image;
     this.notifySubscribers();
     this.saveData();
   }
