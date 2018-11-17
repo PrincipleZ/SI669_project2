@@ -12,8 +12,8 @@
     <ion-item>
       <button ion-button full (click)="addEntry()">Add Entry</button>
     </ion-item>
-    
-    <ion-item *ngFor="let entry of entries" (click)="editEntry(entry.id)">
+
+    <ion-item *ngFor="let entry of entries" (click)="editEntry(entry.key)">
 
       <ion-label><img class="thumbnail" [src]="entry.image"/></ion-label>
       <ion-label>
@@ -21,7 +21,7 @@
         <p>{{entry.text}}</p>
         <p class="date">{{entry.timestamp | date:'short'}}</p>
       </ion-label>
-    <button ion-button clear icon-only item-end (click)="deleteEntry(entry.id)">
+    <button ion-button clear icon-only item-end (click)="deleteEntry(entry.key)">
         <ion-icon name="close-circle"></ion-icon>
       </button>
     </ion-item>

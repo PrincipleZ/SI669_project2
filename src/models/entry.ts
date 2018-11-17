@@ -1,7 +1,8 @@
 export class Entry {
+    key:string;
     id: number;
     title: string;
     text: string;
-    timestamp: Date;
+    timestamp: any;
     image: string;
 }
